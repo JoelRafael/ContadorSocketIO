@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de conexion con Socket.IO</title>
+</head>
+<body>
+    <h1>Comunicacion bidirecional con Socket.IO</h1>
+    <P id="hello"></P>
+    <P>
+        Numero de conexiones activas: <b id="conexions"></b>
+    </P>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        (function(io){
+            'use strict'
+            var io = io(),
+            d = document
+            io.on('hello', (data)=>{
+                console.log(data)
+                d.querySelector('#hello').innerHTML = data.message
+            })
+            io.emit('otro evento que me invente', {name:'Joel Rafael'})
+            io.on('connect users', (data)=>{
+                   d.querySelector('#conexions').innerHTML=data.numbers
+                })
+        })(io)
+    </script>
+</body>
+</html>
